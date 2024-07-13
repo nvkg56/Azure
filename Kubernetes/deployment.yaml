@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextapp
+  labels:
+    app: web
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: nextapp
+          image: kgregis.azurecr.io/nextapp:v4
+          ports:
+            - containerPort: 80
