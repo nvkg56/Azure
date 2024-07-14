@@ -1,10 +1,11 @@
 az login 
 az acr login --name $ACR_NAME
-az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
-kubectl apply -f ./k8s
-az vm show --resource-group $RESOURCE_GROUP --name $VM_NAME --show-details --query publicIps -o tsv
 
-az vm create --resource-group vmrg --name vm1 --size Standard_B1s --image Ubuntu2204 --admin-username vm1 --generate-ssh-keys --vnet-name vmnet --subnet vnsub1 --public-ip-sku Standard
+az vm show --resource-group $RESOURCE_GROUP --name $VM_NAME --show-details --query publicIps -o tsv
+az vm deallocate --resource-group vmrg --name vm1
+az vm extension set --resource-group vmrg --vm-name vm1 --name customScript --publisher Microsoft.Azure.Extensions --settings ./script.json
+
+az vm create --resource-group vmrg --name vm2 --size Standard_B1s --image Ubuntu2204 --admin-username vm2 --generate-ssh-keys --vnet-name vmnet --subnet vmsub2 --public-ip-sku Standard
 
 az vm image list --offer ubuntu  --output table
 az vm list-sizes --location eastasia --output table

@@ -1,0 +1,8 @@
+az group create --name vmrsg --location southeastasia
+
+az network vnet create --name vmvnet --resource-group vmrsg --address-prefix 10.0.0.0/16 --subnet-name vmsubnet1 --subnet-prefixes 10.0.0.0/24
+
+az network vnet subnet create --name vmsubnet2 --resource-group vmrsg --vnet-name vmvnet --address-prefixes 10.0.1.0/24
+
+az vm create --resource-group vmrsg --name vm1 --size Standard_B1s --image Ubuntu2204 --admin-username vm1 --generate-ssh-keys --vnet-name vmvnet --subnet vmsubnet2
+

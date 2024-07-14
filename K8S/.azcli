@@ -1,0 +1,9 @@
+az aks get-credentials --resource-group k8srsg --name k8scluster
+
+az aks update --name k8scluster --resource-group k8srsg --attach-acr kgregis
+
+az aks create --resource-group myResourceGroup --name myManagedCluster --enable-aad --aad-admin-group-object-ids <id> [--aad-tenant-id <id>] --generate-ssh-keys
+
+az aks update --resource-group k8srsg --name k8scluster --enable-aad --aad-admin-group-object-ids 1de6cd46-1f8d-4782-ad15-a57053b6d783 --aad-tenant-id fd3d7b85-e63c-4e1f-974b-e74c5907f77a
+
+kubectl apply -f ./deployment.yaml
