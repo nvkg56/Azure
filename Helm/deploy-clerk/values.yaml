@@ -6,7 +6,7 @@ replicaCount: 2
 
 image:
   repository: kgregis.azurecr.io/clerk
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1"
 
@@ -43,7 +43,7 @@ securityContext:
 
 service:
   type: LoadBalancer
-  port: 3000
+  port: 80
 
 ingress:
   enabled: false
@@ -85,7 +85,8 @@ readinessProbe:
     port: http
 
 autoscaling:
-  enabled: false
+  enabled: true
+  Kind: HorizontalPodAutoscaler
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
